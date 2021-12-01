@@ -1,3 +1,7 @@
+philo
+test*
+philo.dSYM
+
 # Prerequisites
 *.d
 
