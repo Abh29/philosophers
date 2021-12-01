@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 16:41:10 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/01 20:05:05 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/01 20:51:15 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_philosopher_thread(void *vrgs)
 
 	args = (t_args *)vrgs;
 	args->philo->ate_last[*args->n] = ft_time_stamp(args->philo);
-	while (1)
+	while (!args->philo->end_sim)
 	{
 		ft_philo_eat(args);
 		ft_philo_sleep(args);
@@ -44,6 +44,7 @@ void	ft_create_philo_threads(t_philo *philo)
 	args = malloc(philo->p_num * sizeof(t_args));
 	if (args == NULL)
 		ft_exit("Error : could not allocate memory !", 2, 1);
+	*philo->args = args;
 	i = 0;
 	while (i < philo->p_num)
 	{

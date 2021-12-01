@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 16:22:35 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/01 19:33:37 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/01 21:07:15 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,12 @@ void	ft_init_forks(t_philo *philo)
 
 void	ft_init_extra_arg(t_philo *philo, int argc, char **argv)
 {
+	philo->end_sim = 0;
 	philo->zero_time = 0;
 	philo->zero_time = ft_time_stamp(philo);
+	philo->args = malloc(sizeof(t_args *));
+	if (philo->args == NULL)
+		ft_exit("Error : could not allocate memory for args !\n", 2, 1);
 	if (argc == 6)
 	{
 		philo->eat_max = ft_atoi(argv[5]);

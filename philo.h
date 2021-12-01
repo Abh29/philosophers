@@ -26,10 +26,11 @@ typedef struct s_philo
 {
 	pthread_t			*tids;
 	pthread_mutex_t		*forks;
-	int					*last_eat_time;
+	int					end_sim;
 	pthread_mutex_t		*eating_now_m;
 	char				*eating_now;
 	long				*ate_last;
+	void				**args;
 	int					p_num;
 	int					die;
 	int					sleep;
@@ -48,11 +49,13 @@ typedef struct s_args
 //tools
 void	ft_exit(char *msg, int fd, int err);
 int		ft_strlen(char *str);
+void	ft_putstr_fd(char *str, int fd);
 int		ft_atoi(const char *str);
 void	ft_sleep_callback(int ms, int max_sleep_ms, \
 		void *callback(t_args *args), t_args *args);
 void	*ft_check_end(t_args *args);
 long	ft_time_stamp(t_philo *philo);
+void	ft_free_and_exit(t_args *args);
 
 void	ft_lock_forks(t_args *args);
 void	ft_unlock_forks(t_args *args);
