@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 16:22:35 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/01 21:07:15 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/03 18:33:22 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_init(t_philo *philo, int argc, char **argv)
 	philo->die = ft_atoi(argv[2]);
 	philo->eat = ft_atoi(argv[3]);
 	philo->sleep = ft_atoi(argv[4]);
-	if (philo->p_num <= 0 || philo->die <= 0 || \
+	if (philo->p_num <= 1 || philo->die <= 0 || \
 	philo->eat <= 0 || philo->eat <= 0 || philo->sleep <= 0)
 		ft_exit("Error : incorrect arguments (negative values) !\n", 2, 1);
 	ft_init_extra_arg(philo, argc, argv);
@@ -64,10 +64,11 @@ void	ft_init(t_philo *philo, int argc, char **argv)
 	philo->forks = malloc((philo->p_num + 1) * sizeof(pthread_mutex_t));
 	philo->eating_now = malloc(philo->p_num + 1);
 	philo->eating_now_m = malloc(sizeof(pthread_mutex_t));
+	philo->exit_m = malloc(sizeof(pthread_mutex_t *));
 	philo->ate_last = malloc(philo->p_num * sizeof(long));
 	if (philo->tids == NULL || philo->forks == NULL || \
 	philo->eating_now == NULL || philo->eating_now_m == NULL || \
-	philo->ate_last == NULL)
+	philo->ate_last == NULL || philo->exit_m == NULL)
 		ft_exit("Error : malloc error could not initiate \
 		philo structure !\n", 2, 1);
 	memset(philo->eating_now, 0, philo->p_num);

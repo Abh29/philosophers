@@ -6,11 +6,19 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 16:59:56 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/01 20:10:34 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/03 20:26:52 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
+
+void	ft_philo_think(t_args *args)
+{
+	if (args->philo->end_sim != 0)
+		return ;
+	printf("%-10ld %-5d is thinking ...\n", \
+	ft_time_stamp(args->philo), *args->n);
+}
 
 int	ft_can_eat(t_args *args)
 {
@@ -37,6 +45,8 @@ void	ft_philo_eat(t_args *args)
 		ft_philo_think(args);
 		while (!ft_can_eat(args))
 			usleep(100);
+		if (args->philo->end_sim != 0)
+			return ;
 	}
 	pthread_mutex_lock(args->philo->eating_now_m);
 	args->philo->eating_now[*args->n] = 1;
@@ -45,7 +55,7 @@ void	ft_philo_eat(t_args *args)
 		args->philo->eat_num[*args->n]++;
 	ft_lock_forks(args);
 	pthread_mutex_unlock(args->philo->eating_now_m);
-	printf("%-10ld %-5d is eating ...\n", \
+	printf("%-10ld %-5d is eating \n", \
 	ft_time_stamp(args->philo), *args->n);
 	ft_sleep_callback(args->philo->eat, 5, ft_eat, args);
 	args->philo->ate_last[*args->n] = ft_time_stamp(args->philo);

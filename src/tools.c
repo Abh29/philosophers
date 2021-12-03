@@ -39,6 +39,8 @@ void *callback(t_args *args), t_args *args)
 	callback(args);
 	while (ms > 0)
 	{
+		if (args->philo->end_sim != 0)
+			return ;
 		if (ms > max_sleep_ms)
 			usleep(max_sleep_ms * 1000);
 		else

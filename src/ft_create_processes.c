@@ -1,0 +1,55 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_create_processes.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/01 16:41:10 by mehill            #+#    #+#             */
+/*   Updated: 2021/12/03 21:25:48 by mehill           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../philo.h"
+
+void	*ft_philosopher_proc(t_philo2 *philo, int n)
+{
+	philo->ate_last[n] = ft_time_stamp2(philo);
+	while (philo->end_sim == 0)
+	{
+		ft_philo_eat2(philo, n);
+		ft_philo_sleep2(philo, n);
+	}
+	return (NULL);
+}
+
+void	ft_wait_procs(t_philo2 *philo)
+{
+	int	i;
+	int	status;
+
+	i = 0;
+	status = 0;
+	while (i < philo->p_num)
+		waitpid((pid_t)philo->pids[i++], &status, 0);
+}
+
+void	ft_create_philo_procs(t_philo2 *philo)
+{
+	int		i;
+	int		pid;
+
+	i = 0;
+	while (i < philo->p_num)
+	{
+		pid = fork();
+		if (pid < 0)
+			ft_exit("Error : fork error !\n", 2, 1);
+		if (pid > 0)
+		{
+			philo->pids[i] = pid;
+			ft_philosopher_proc(philo, i);
+		}
+		i++;
+	}
+}

@@ -12,12 +12,6 @@
 
 #include "philo.h"
 
-void	ft_philo_think(t_args *args)
-{
-	printf("%-10ld %-5d is thinking ...\n", \
-	ft_time_stamp(args->philo), *args->n);
-}
-
 int	main(int argc, char **argv)
 {
 	t_philo	philo;
@@ -27,5 +21,6 @@ int	main(int argc, char **argv)
 	ft_init(&philo, argc, argv);
 	ft_create_philo_threads(&philo);
 	ft_join_threads(&philo);
+	ft_free_and_exit(&philo);
 	return (0);
 }

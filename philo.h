@@ -19,6 +19,11 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <pthread.h>
+# include <fcntl.h>
+# include <sys/stat.h>
+# include <semaphore.h>
+# include <signal.h>
+# include <sys/wait.h>
 
 typedef struct timeval	t_time;
 
@@ -26,7 +31,6 @@ typedef struct s_philo
 {
 	pthread_t			*tids;
 	pthread_mutex_t		*forks;
-	int					end_sim;
 	pthread_mutex_t		*eating_now_m;
 	char				*eating_now;
 	long				*ate_last;
@@ -38,6 +42,8 @@ typedef struct s_philo
 	int					*eat_num;
 	int					eat_max;
 	long				zero_time;
+	pthread_mutex_t		*exit_m;
+	int					end_sim;
 }				t_philo;
 
 typedef struct s_args
@@ -46,6 +52,22 @@ typedef struct s_args
 	int		*n;
 }			t_args;
 
+typedef struct s_philo2
+{
+	int					p_num;
+	int					die;
+	int					sleep;
+	int					eat;
+	int					*eat_num;
+	int					eat_max;
+	int					*pids;
+	sem_t				*forks;
+	long				zero_time;
+	long				*ate_last;
+	sem_t				*exit_m;
+	int					end_sim;
+}				t_philo2;
+
 //tools
 void	ft_exit(char *msg, int fd, int err);
 int		ft_strlen(char *str);
@@ -53,9 +75,13 @@ void	ft_putstr_fd(char *str, int fd);
 int		ft_atoi(const char *str);
 void	ft_sleep_callback(int ms, int max_sleep_ms, \
 		void *callback(t_args *args), t_args *args);
+void	ft_sleep_callback2(int ms, int max_sleep_ms, \
+		void *callback(void *args), void *args);
 void	*ft_check_end(t_args *args);
 long	ft_time_stamp(t_philo *philo);
-void	ft_free_and_exit(t_args *args);
+long	ft_time_stamp2(t_philo2 *philo);
+void	ft_free_and_exit(t_philo *philo);
+void	ft_free_and_exit2(t_philo2 *philo);
 
 void	ft_lock_forks(t_args *args);
 void	ft_unlock_forks(t_args *args);
@@ -68,5 +94,13 @@ void	ft_philo_sleep(t_args *args);
 void	ft_philo_full(t_args *args);
 void	ft_create_philo_threads(t_philo *philo);
 void	ft_join_threads(t_philo *philo);
+
+//bonus
+void	ft_init_bonus(t_philo2 *philo, int argc, char **argv);
+void	ft_create_philo_procs(t_philo2 *philo);
+void	ft_philo_sleep2(t_philo2 *philo, int n);
+void	ft_philo_eat2(t_philo2 *philo, int n);
+void	*ft_check_end2(void *vphilo);
+void	ft_wait_procs(t_philo2 *philo);
 
 #endif

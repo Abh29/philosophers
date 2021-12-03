@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 17:15:01 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/01 21:21:45 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/03 20:06:01 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,29 @@
 
 void	ft_philo_die(t_args *args, int n)
 {
-	int	i;
-
-	if (args->n == NULL)
-		exit(0);
-	printf("%ld %d died ! last ate %ld\n", \
+	if (args->philo->end_sim != 0)
+		return ;
+	pthread_mutex_lock(args->philo->exit_m);
+	if (args->philo->end_sim != 0)
+		return ;
+	args->philo->end_sim = 1;
+	printf("%-10ld %-5d died ! last ate %ld\n", \
 	ft_time_stamp(args->philo), n, args->philo->ate_last[n]);
-	i = 0;
-	while (i < args->philo->p_num)
-		pthread_detach(args->philo->tids[i++]);
-	ft_free_and_exit(args);
+	pthread_mutex_unlock(args->philo->exit_m);
 	return ;
 }
 
 void	ft_philo_full(t_args *args)
 {
-	int	i;
-
-	i = 0;
-	args->philo->end_sim = 1;
-	while (i < args->philo->p_num)
-		pthread_detach(args->philo->tids[i++]);
-	ft_putstr_fd("Worning : philosophers are full !\n", 1);
-	ft_free_and_exit(args);
+	pthread_mutex_lock(args->philo->exit_m);
+	if (args->philo->end_sim != 0)
+		return ;
+	args->philo->end_sim = 2;
+	printf("Worning : philosophers are full !\n");
+	pthread_mutex_unlock(args->philo->exit_m);
 	return ;
 }
 
-//FIXME: free memory upon dead or full event 
 void	*ft_check_end(t_args *args)
 {
 	int		i;
@@ -52,9 +48,11 @@ void	*ft_check_end(t_args *args)
 	now = ft_time_stamp(args->philo);
 	while (i < args->philo->p_num)
 	{
-		if (now - args->philo->ate_last[i] > args->philo->die)
+		if (args->philo->end_sim != 0)
+			return (NULL);
+		else if (now - args->philo->ate_last[i] > args->philo->die)
 			ft_philo_die(args, i);
-		if (args->philo->eat_num && args->philo->eat_num[i] >= \
+		else if (args->philo->eat_num && args->philo->eat_num[i] >= \
 		args->philo->eat_max)
 			full++;
 		i++;
