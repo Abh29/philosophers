@@ -8,6 +8,7 @@ CC = gcc
 
 FLGS = -Wall -Werror -Wextra -Imlx  -g -pthread -lrt
 VALGFLGS = --vgdb=full --leak-check=full -s -q
+TARGS = 5 1500 200 200 25
 
 HEADER = philo.h
 
@@ -30,9 +31,6 @@ fclean: clean
 
 re: fclean all
 
-test:
-	@make -C libft/
-	@$(CC) $(BSRC) $(LIBFT)  -o tst -lm
 
 valgrind: $(NAME)
 	@valgrind $(VALGFLGS) ./$(NAME) $(TARGS)

@@ -73,5 +73,6 @@ void	ft_init(t_philo *philo, int argc, char **argv)
 		philo structure !\n", 2, 1);
 	memset(philo->eating_now, 0, philo->p_num);
 	memset(philo->ate_last, 0, philo->p_num * sizeof(long));
+	memset(philo->forks, 0, philo->p_num * sizeof(pthread_mutex_t));
 	ft_init_forks(philo);
 }

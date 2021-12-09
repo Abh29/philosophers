@@ -50,9 +50,8 @@ void	ft_create_philo_threads(t_philo *philo)
 		args[i].philo = philo;
 		args[i].n = malloc(sizeof(int));
 		*(args[i].n) = i;
-		pthread_create(&(philo->tids[i]), NULL, \
-		ft_philosopher_thread, &args[i]);
-		if (philo->tids[i] < 0)
+		if (pthread_create(&(philo->tids[i]), NULL, \
+		ft_philosopher_thread, &args[i]) != 0)
 			ft_exit("Error : could not create a thread !\n", 2, 1);
 		i++;
 	}

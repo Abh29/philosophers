@@ -43,11 +43,14 @@ void	ft_free_and_exit2(t_philo2 *philo)
 {
 	int		i;
 
+	printf("free and exit \n");
 	i = 0;
 	while (i < philo->p_num)
-		kill((pid_t)philo->pids[i], 0);
+		kill((pid_t)philo->pids[i++], 0);
 	sem_close(philo->forks);
+	sem_unlink("fork_m");
 	sem_close(philo->exit_m);
+	sem_unlink("exit_m");
 	free(philo->pids);
 	free(philo->ate_last);
 	if (philo->eat_num)

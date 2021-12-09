@@ -22,7 +22,7 @@ void	ft_sleep_callback2(int ms, int max_sleep_ms, \
 	while (ms > 0)
 	{
 		if (philo->end_sim != 0)
-			return ;
+			exit(0) ;
 		if (ms > max_sleep_ms)
 			usleep(max_sleep_ms * 1000);
 		else

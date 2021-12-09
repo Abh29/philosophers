@@ -44,9 +44,10 @@ void	ft_init_bonus(t_philo2 *philo, int argc, char **argv)
 	philo->ate_last = malloc(philo->p_num * sizeof(long));
 	if (!philo->pids || !philo->pids || !philo->ate_last || !philo->ate_last)
 		ft_exit("Error : could not initiate philo structure !\n", 2, 1);
-	philo->forks = sem_open("forks", O_CREAT, 0775, philo->p_num / 2);
-	philo->forks = sem_open("exit_m", O_CREAT, 0775, 1);
-	if (philo->forks == SEM_FAILED || philo->exit_m == SEM_FAILED)
+	philo->forks = sem_open("forks_m", O_CREAT | O_EXCL, 0775, philo->p_num / 2);
+	philo->exit_m = sem_open("exit_m", O_CREAT | O_EXCL, 0775, 1);
+	if (philo->forks == SEM_FAILED  || philo->exit_m == SEM_FAILED)
 		ft_exit("Error : could not create a semaphore !\n", 2, 1);
 	memset(philo->pids, 0, philo->p_num * sizeof(int));
+	memset(philo->ate_last, 0, philo->p_num * sizeof(long));
 }

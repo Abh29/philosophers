@@ -19,12 +19,9 @@ int	main(int argc, char **argv)
 	if (argc < 5 || argc > 6)
 		ft_exit("Error : wrong number of arguments !\n", 2, 1);
 	ft_init_bonus(&philo, argc, argv);
-	printf("%d  %d  %d  %d \n", philo.p_num, philo.eat, philo.die, philo.sleep);
-	getchar();
 	ft_create_philo_procs(&philo);
 	ft_wait_procs(&philo);
 	ft_free_and_exit2(&philo);
 	printf("buy !");
-	getchar();
 	return (0);
 }
