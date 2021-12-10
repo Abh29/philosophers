@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 20:31:50 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/03 20:32:17 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/10 17:17:45 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,25 @@ void	*ft_check_end2(void *vphilo)
 {
 	long		now;
 	int			i;
+	t_philo2	*philo;
+
+	if (vphilo == NULL)
+		exit(1);
+	philo = (t_philo2 *)vphilo;
+	now = ft_time_stamp2(philo);
+	i = philo->ith;
+	if (philo->end_sim != 0)
+		exit(0);
+	else if (philo->ate_last[i] && now - philo->ate_last[i] > philo->die)
+		ft_philo_die2(philo, i);
+	return (NULL);
+}
+
+/*
+void	*ft_check_end2(void *vphilo)
+{
+	long		now;
+	int			i;
 	int			full;
 	t_philo2	*philo;
 
@@ -65,3 +84,4 @@ void	*ft_check_end2(void *vphilo)
 		ft_philo_full2(philo);
 	return (NULL);
 }
+*/

@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 16:41:10 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/03 21:25:48 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/10 17:20:03 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_wait_procs(t_philo2 *philo)
 void	ft_create_philo_procs(t_philo2 *philo)
 {
 	int		i;
-	
+
 	i = 0;
 	while (i < philo->p_num)
 	{
@@ -48,6 +48,7 @@ void	ft_create_philo_procs(t_philo2 *philo)
 			ft_exit("Error : fork error !\n", 2, 1);
 		if (philo->pids[i] == 0)
 		{
+			philo->ith = i;
 			ft_philosopher_proc(philo, i);
 			exit(0);
 		}
