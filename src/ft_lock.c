@@ -14,16 +14,16 @@
 
 void	ft_lock_forks(t_args *args)
 {
-	pthread_mutex_lock(&(args->philo->forks[*args->n]));
-	pthread_mutex_lock(&(args->philo->\
-	forks[*args->n + 1 % args->philo->p_num]));
+	pthread_mutex_lock(args->philo->forks[*args->n]);
+	pthread_mutex_lock(args->philo->\
+	forks[*args->n + 1 % args->philo->p_num]);
 	printf("%-10ld %-5d has taken a fork\n", \
 	ft_time_stamp(args->philo), *args->n);
 }
 
 void	ft_unlock_forks(t_args *args)
 {
-	pthread_mutex_unlock(&(args->philo->forks[*args->n]));
-	pthread_mutex_unlock(&(args->philo->\
-	forks[*args->n + 1 % args->philo->p_num]));
+	pthread_mutex_unlock(args->philo->forks[*args->n]);
+	pthread_mutex_unlock(args->philo->\
+	forks[*args->n + 1 % args->philo->p_num]);
 }

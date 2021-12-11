@@ -30,7 +30,7 @@ typedef struct timeval	t_time;
 typedef struct s_philo
 {
 	pthread_t			*tids;
-	pthread_mutex_t		*forks;
+	pthread_mutex_t		**forks;
 	pthread_mutex_t		*eating_now_m;
 	char				*eating_now;
 	long				*ate_last;

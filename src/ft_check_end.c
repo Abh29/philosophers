@@ -23,7 +23,6 @@ void	ft_philo_die(t_args *args, int n)
 	usleep(1000);
 	printf("%-10ld %-5d died ! last ate %ld\n", \
 	ft_time_stamp(args->philo), n, args->philo->ate_last[n]);
-	exit(0);
 	pthread_mutex_unlock(args->philo->exit_m);
 	return ;
 }
@@ -34,7 +33,7 @@ void	ft_philo_full(t_args *args)
 	if (args->philo->end_sim != 0)
 		return ;
 	args->philo->end_sim = 2;
-	printf("Worning : philosophers are full !\n");
+	printf("%-10ld       philosophers are full !\n", ft_time_stamp(args->philo));
 	pthread_mutex_unlock(args->philo->exit_m);
 	return ;
 }

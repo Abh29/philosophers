@@ -17,13 +17,16 @@ void	ft_init_forks(t_philo *philo)
 	int	i;
 
 	i = 0;
-	while (i < philo->p_num)
+	while (i < philo->p_num + 1)
 	{
-		if (pthread_mutex_init(&(philo->forks[i]), NULL) != 0)
+		philo->forks[i] = malloc (sizeof(pthread_mutex_t));
+		if (pthread_mutex_init(philo->forks[i], NULL) != 0)
 			ft_exit("Error : could not init a mutex \n", 2, 1);
 		i++;
 	}
 	if (pthread_mutex_init(philo->eating_now_m, NULL) != 0)
+		ft_exit("Error : could not init a mutex !\n", 2, 1);
+	if (pthread_mutex_init(philo->exit_m, NULL) != 0)
 		ft_exit("Error : could not init a mutex !\n", 2, 1);
 }
 
@@ -61,10 +64,10 @@ void	ft_init(t_philo *philo, int argc, char **argv)
 		ft_exit("Error : incorrect arguments (negative values) !\n", 2, 1);
 	ft_init_extra_arg(philo, argc, argv);
 	philo->tids = malloc((philo->p_num + 1) * sizeof(pthread_t));
-	philo->forks = malloc((philo->p_num + 1) * sizeof(pthread_mutex_t));
+	philo->forks = malloc((philo->p_num + 1) * sizeof(pthread_mutex_t *));
 	philo->eating_now = malloc(philo->p_num + 1);
 	philo->eating_now_m = malloc(sizeof(pthread_mutex_t));
-	philo->exit_m = malloc(sizeof(pthread_mutex_t *));
+	philo->exit_m = malloc(sizeof(pthread_mutex_t));
 	philo->ate_last = malloc(philo->p_num * sizeof(long));
 	if (philo->tids == NULL || philo->forks == NULL || \
 	philo->eating_now == NULL || philo->eating_now_m == NULL || \
@@ -73,6 +76,5 @@ void	ft_init(t_philo *philo, int argc, char **argv)
 		philo structure !\n", 2, 1);
 	memset(philo->eating_now, 0, philo->p_num);
 	memset(philo->ate_last, 0, philo->p_num * sizeof(long));
-	memset(philo->forks, 0, philo->p_num * sizeof(pthread_mutex_t));
 	ft_init_forks(philo);
 }

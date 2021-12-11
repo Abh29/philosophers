@@ -17,7 +17,6 @@ void	*ft_philosopher_thread(void *vrgs)
 	t_args	*args;
 
 	args = (t_args *)vrgs;
-	args->philo->ate_last[*args->n] = ft_time_stamp(args->philo);
 	while (args->philo->end_sim == 0)
 	{
 		ft_philo_eat(args);
@@ -40,10 +39,11 @@ void	ft_create_philo_threads(t_philo *philo)
 	int		i;
 	t_args	*args;
 
-	args = malloc(philo->p_num * sizeof(t_args));
+	args = malloc((philo->p_num + 1) * sizeof(t_args));
 	if (args == NULL)
 		ft_exit("Error : could not allocate memory !", 2, 1);
 	*philo->args = args;
+	args[philo->p_num].n = malloc(sizeof(int));
 	i = 0;
 	while (i < philo->p_num)
 	{

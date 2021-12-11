@@ -54,14 +54,14 @@ void	ft_philo_eat(t_args *args)
 	pthread_mutex_lock(args->philo->eating_now_m);
 	args->philo->eating_now[*args->n] = 1;
 	args->philo->ate_last[*args->n] = ft_time_stamp(args->philo);
-	if (args->philo->eat_num)
-		args->philo->eat_num[*args->n]++;
 	ft_lock_forks(args);
 	pthread_mutex_unlock(args->philo->eating_now_m);
 	printf("%-10ld %-5d is eating \n", \
 	ft_time_stamp(args->philo), *args->n);
 	ft_sleep_callback(args->philo->eat, 1, ft_eat, args);
 	args->philo->ate_last[*args->n] = ft_time_stamp(args->philo);
+	if (args->philo->eat_num)
+		args->philo->eat_num[*args->n]++;
 	ft_unlock_forks(args);
 	args->philo->eating_now[*args->n] = 0;
 }

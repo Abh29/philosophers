@@ -19,16 +19,17 @@ void	ft_free_and_exit(t_philo *philo)
 
 	args = *philo->args;
 	i = 0;
-	while (i < philo->p_num)
+	while (i < philo->p_num + 1)
 	{
 		if (args[i].n)
 			free(args[i].n);
-		pthread_detach(philo->tids[i]);
-		pthread_mutex_destroy(&(philo->forks[i++]));
+		pthread_mutex_destroy(philo->forks[i]);
+		free(philo->forks[i++]);
 	}
 	pthread_mutex_destroy(philo->eating_now_m);
 	pthread_mutex_destroy(philo->exit_m);
 	free(args);
+	free(philo->args);
 	free(philo->tids);
 	free(philo->forks);
 	free(philo->eating_now);
