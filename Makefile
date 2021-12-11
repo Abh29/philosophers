@@ -6,8 +6,9 @@ BSRC :=	main_bonus.c src/*.c
 
 CC = gcc
 
-FLGS = -Wall -Werror -Wextra -Imlx  -g -pthread -lrt
-VALGFLGS =  --vgdb=full -s -q --tool=helgrind
+##FLGS = -Wall -Werror -Wextra -Imlx  -g -pthread -lrt
+FLGS = -Wall -Werror -Wextra -Imlx  -g -pthread
+VALGFLGS = --vgdb=full --leak-check=full -s -q
 TARGS = 5 1500 200 200 25
 
 HEADER = philo.h

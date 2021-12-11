@@ -66,6 +66,7 @@ typedef struct s_philo2
 	long				*ate_last;
 	sem_t				*exit_m;
 	int					end_sim;
+	int					ith;
 }				t_philo2;
 
 //tools

@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 16:22:35 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/03 20:55:16 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/10 17:40:02 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,12 @@ void	ft_init_bonus(t_philo2 *philo, int argc, char **argv)
 	philo->ate_last = malloc(philo->p_num * sizeof(long));
 	if (!philo->pids || !philo->pids || !philo->ate_last || !philo->ate_last)
 		ft_exit("Error : could not initiate philo structure !\n", 2, 1);
-	philo->forks = sem_open("forks_m", O_CREAT | O_EXCL, 0775, philo->p_num / 2);
+	sem_unlink("forks_m");
+	sem_unlink("exit_m");
+	philo->forks = sem_open("forks_m", O_CREAT | O_EXCL, 0775, \
+	philo->p_num / 2);
 	philo->exit_m = sem_open("exit_m", O_CREAT | O_EXCL, 0775, 1);
-	if (philo->forks == SEM_FAILED  || philo->exit_m == SEM_FAILED)
+	if (philo->forks == SEM_FAILED || philo->exit_m == SEM_FAILED)
 		ft_exit("Error : could not create a semaphore !\n", 2, 1);
 	memset(philo->pids, 0, philo->p_num * sizeof(int));
 	memset(philo->ate_last, 0, philo->p_num * sizeof(long));
