@@ -20,7 +20,7 @@ void	ft_philo_die2(t_philo2 *philo, int n)
 	philo->end_sim = 1;
 	printf("%-10ld %-5d died ! last ate %ld\n", \
 	ft_time_stamp2(philo), n, philo->ate_last[n]);
-	kill(0, 9);
+	kill(0, SIGINT);
 	sem_post(philo->exit_m);
 	exit(0);
 }

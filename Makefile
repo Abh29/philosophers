@@ -9,7 +9,7 @@ CC = gcc
 FLGS = -Wall -Werror -Wextra -Imlx  -g -pthread -lrt
 ##FLGS = -Wall -Werror -Wextra -Imlx  -g -pthread
 VALGFLGS = --vgdb=full --leak-check=full -s -q
-TARGS = 2 1500 200 200 1
+TARGS = 5 1500 200 2000 2
 
 HEADER = philo.h
 
