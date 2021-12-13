@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 16:41:10 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/10 17:20:03 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/13 13:39:36 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,14 @@ void	*ft_philosopher_proc(t_philo2 *philo, int n)
 
 void	ft_wait_procs(t_philo2 *philo)
 {
-	//int	i;
-	//int	status;
+	int	i;
+	int	status;
 
-	//i = 0;
-	//status = 0;
+	i = 0;
+	status = 0;
 	(void) philo;
-	//while (i < philo->p_num)
-	//	waitpid((pid_t)philo->pids[i++], &status, 0);
-	while (wait(NULL) > 0);
+	while (i < philo->p_num)
+		waitpid((pid_t)philo->pids[i++], &status, 0);
 }
 
 void	ft_create_philo_procs(t_philo2 *philo)

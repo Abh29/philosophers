@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 16:13:21 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/10 17:23:27 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/13 13:50:22 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,21 @@ long	ft_time_stamp2(t_philo2 *philo)
 
 	gettimeofday(&tp, NULL);
 	return (tp.tv_sec * 1000 + tp.tv_usec / 1000 - philo->zero_time);
+}
+
+void	ft_print_status(t_philo2 *philo, int n, char *msg)
+{
+	sem_wait(philo->io_m);
+	printf("%-10ld %-5d %s\n", ft_time_stamp2(philo), n, msg);
+	sem_post(philo->io_m);
+}
+
+void	ft_print_thstatus(t_args *args, char *msg)
+{
+	pthread_mutex_lock(args->philo->io_m);
+	usleep(10);
+	if (*args->philo->end_sim == 0)
+		printf("%-10ld %-5d %s %d\n", \
+		ft_time_stamp(args->philo), *args->n, msg, *args->philo->end_sim);
+	pthread_mutex_unlock(args->philo->io_m);
 }

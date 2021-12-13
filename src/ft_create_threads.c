@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 16:41:10 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/03 18:50:49 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/13 13:39:50 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*ft_philosopher_thread(void *vrgs)
 	t_args	*args;
 
 	args = (t_args *)vrgs;
-	while (args->philo->end_sim == 0)
+	while (*args->philo->end_sim == 0)
 	{
 		ft_philo_eat(args);
 		ft_philo_sleep(args);

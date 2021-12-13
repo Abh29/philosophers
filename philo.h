@@ -32,6 +32,7 @@ typedef struct s_philo
 	pthread_t			*tids;
 	pthread_mutex_t		**forks;
 	pthread_mutex_t		*eating_now_m;
+	pthread_mutex_t		*io_m;
 	char				*eating_now;
 	long				*ate_last;
 	void				**args;
@@ -43,7 +44,7 @@ typedef struct s_philo
 	int					eat_max;
 	long				zero_time;
 	pthread_mutex_t		*exit_m;
-	int					end_sim;
+	int					*end_sim;
 }				t_philo;
 
 typedef struct s_args
@@ -67,6 +68,7 @@ typedef struct s_philo2
 	sem_t				*exit_m;
 	int					end_sim;
 	int					ith;
+	sem_t				*io_m;
 }				t_philo2;
 
 //tools
@@ -95,6 +97,7 @@ void	ft_philo_sleep(t_args *args);
 void	ft_philo_full(t_args *args);
 void	ft_create_philo_threads(t_philo *philo);
 void	ft_join_threads(t_philo *philo);
+void	ft_print_thstatus(t_args *args, char *msg);
 
 //bonus
 void	ft_init_bonus(t_philo2 *philo, int argc, char **argv);
@@ -103,5 +106,6 @@ void	ft_philo_sleep2(t_philo2 *philo, int n);
 void	ft_philo_eat2(t_philo2 *philo, int n);
 void	*ft_check_end2(void *vphilo);
 void	ft_wait_procs(t_philo2 *philo);
+void	ft_print_status(t_philo2 *philo, int n, char *msg);
 
 #endif

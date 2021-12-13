@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 16:22:35 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/03 18:33:22 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/13 13:36:20 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	ft_init_forks(t_philo *philo)
 
 void	ft_init_extra_arg(t_philo *philo, int argc, char **argv)
 {
-	philo->end_sim = 0;
 	philo->zero_time = 0;
 	philo->zero_time = ft_time_stamp(philo);
 	philo->args = malloc(sizeof(t_args *));
@@ -53,6 +52,24 @@ void	ft_init_extra_arg(t_philo *philo, int argc, char **argv)
 		philo->eat_num = NULL;
 }
 
+void	ft_mem_allocate(t_philo *philo)
+{
+	philo->tids = malloc((philo->p_num + 1) * sizeof(pthread_t));
+	philo->forks = malloc((philo->p_num + 1) * sizeof(pthread_mutex_t *));
+	philo->eating_now = malloc(philo->p_num + 1);
+	philo->eating_now_m = malloc(sizeof(pthread_mutex_t));
+	philo->exit_m = malloc(sizeof(pthread_mutex_t));
+	philo->ate_last = malloc(philo->p_num * sizeof(long));
+	philo->io_m = malloc(sizeof(pthread_mutex_t));
+	philo->end_sim = malloc(sizeof(int));
+	*philo->end_sim = 0;
+	if (philo->tids == NULL || philo->forks == NULL || \
+	philo->eating_now == NULL || philo->eating_now_m == NULL || \
+	philo->ate_last == NULL || philo->exit_m == NULL || !philo->io_m)
+		ft_exit("Error : malloc error could not initiate \
+		philo structure !\n", 2, 1);
+}
+
 void	ft_init(t_philo *philo, int argc, char **argv)
 {
 	philo->p_num = ft_atoi(argv[1]);
@@ -63,17 +80,7 @@ void	ft_init(t_philo *philo, int argc, char **argv)
 	philo->eat <= 0 || philo->eat <= 0 || philo->sleep <= 0)
 		ft_exit("Error : incorrect arguments (negative values) !\n", 2, 1);
 	ft_init_extra_arg(philo, argc, argv);
-	philo->tids = malloc((philo->p_num + 1) * sizeof(pthread_t));
-	philo->forks = malloc((philo->p_num + 1) * sizeof(pthread_mutex_t *));
-	philo->eating_now = malloc(philo->p_num + 1);
-	philo->eating_now_m = malloc(sizeof(pthread_mutex_t));
-	philo->exit_m = malloc(sizeof(pthread_mutex_t));
-	philo->ate_last = malloc(philo->p_num * sizeof(long));
-	if (philo->tids == NULL || philo->forks == NULL || \
-	philo->eating_now == NULL || philo->eating_now_m == NULL || \
-	philo->ate_last == NULL || philo->exit_m == NULL)
-		ft_exit("Error : malloc error could not initiate \
-		philo structure !\n", 2, 1);
+	ft_mem_allocate(philo);
 	memset(philo->eating_now, 0, philo->p_num);
 	memset(philo->ate_last, 0, philo->p_num * sizeof(long));
 	ft_init_forks(philo);

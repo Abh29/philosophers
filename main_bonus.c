@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 17:37:12 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/03 21:00:33 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/13 12:10:41 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,5 @@ int	main(int argc, char **argv)
 	ft_create_philo_procs(&philo);
 	ft_wait_procs(&philo);
 	ft_free_and_exit2(&philo);
-	printf("buy !");
 	return (0);
 }

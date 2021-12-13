@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 16:59:56 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/10 18:00:27 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/13 13:44:31 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ void	ft_philo_think(t_args *args)
 {
 	if (args->philo->end_sim != 0)
 		return ;
-	printf("%-10ld %-5d is thinking ...\n", \
-	ft_time_stamp(args->philo), *args->n);
+	ft_print_thstatus(args, "is thinking");
 }
 
 int	ft_can_eat(t_args *args)
@@ -48,16 +47,17 @@ void	ft_philo_eat(t_args *args)
 			usleep(1000);
 			ft_check_end(args);
 		}
-		if (args->philo->end_sim != 0)
+		if (*args->philo->end_sim != 0)
 			return ;
 	}
 	pthread_mutex_lock(args->philo->eating_now_m);
 	args->philo->eating_now[*args->n] = 1;
-	args->philo->ate_last[*args->n] = ft_time_stamp(args->philo);
+	args->philo->ate_last[*args->n] = ft_time_stamp(args->philo) + \
+	args->philo->eat;
 	ft_lock_forks(args);
 	pthread_mutex_unlock(args->philo->eating_now_m);
-	printf("%-10ld %-5d is eating \n", \
-	ft_time_stamp(args->philo), *args->n);
+	ft_print_thstatus(args, "is eating");
+	usleep(10);
 	ft_sleep_callback(args->philo->eat, 1, ft_eat, args);
 	args->philo->ate_last[*args->n] = ft_time_stamp(args->philo);
 	if (args->philo->eat_num)

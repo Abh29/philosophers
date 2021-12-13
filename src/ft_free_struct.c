@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 20:56:13 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/10 17:07:57 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/13 12:24:57 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,15 @@ void	ft_free_and_exit2(t_philo2 *philo)
 {
 	int		i;
 
-	printf("free and exit \n");
 	i = 0;
 	while (i < philo->p_num)
 		kill((pid_t)philo->pids[i++], 0);
 	sem_unlink("forks_m");
 	sem_unlink("exit_m");
+	sem_unlink("stream_m");
 	sem_close(philo->forks);
 	sem_close(philo->exit_m);
+	sem_close(philo->io_m);
 	free(philo->pids);
 	free(philo->ate_last);
 	if (philo->eat_num)

@@ -6,8 +6,8 @@ BSRC :=	main_bonus.c src/*.c
 
 CC = gcc
 
-FLGS = -Wall -Werror -Wextra -Imlx  -g -pthread -lrt
-##FLGS = -Wall -Werror -Wextra -Imlx  -g -pthread
+##FLGS = -Wall -Werror -Wextra -Imlx  -g -pthread -lrt
+FLGS = -Wall -Werror -Wextra -Imlx  -g -pthread
 VALGFLGS = --vgdb=full --leak-check=full -s -q
 TARGS = 5 1500 200 2000 2
 
