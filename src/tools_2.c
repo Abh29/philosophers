@@ -49,10 +49,9 @@ void	ft_print_status(t_philo2 *philo, int n, char *msg)
 
 void	ft_print_thstatus(t_args *args, char *msg)
 {
-	pthread_mutex_lock(args->philo->io_m);
-	usleep(10);
+	//pthread_mutex_lock(args->philo->io_m);
 	if (*args->philo->end_sim == 0)
-		printf("%-10ld %-5d %s %d\n", \
-		ft_time_stamp(args->philo), *args->n, msg, *args->philo->end_sim);
-	pthread_mutex_unlock(args->philo->io_m);
+		printf("%-10ld %-5d %s\n", \
+		ft_time_stamp(args->philo), *args->n, msg);
+	//pthread_mutex_unlock(args->philo->io_m);
 }

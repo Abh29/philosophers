@@ -28,6 +28,10 @@ void	ft_init_forks(t_philo *philo)
 		ft_exit("Error : could not init a mutex !\n", 2, 1);
 	if (pthread_mutex_init(philo->exit_m, NULL) != 0)
 		ft_exit("Error : could not init a mutex !\n", 2, 1);
+	if (pthread_mutex_init(philo->io_m, NULL) != 0)
+		ft_exit("Error : could not init a mutex !\n", 2, 1);
+	if (pthread_mutex_init(philo->end_sim_m, NULL) != 0)
+		ft_exit("Error : could not init a mutex !\n", 2, 1);
 }
 
 void	ft_init_extra_arg(t_philo *philo, int argc, char **argv)
@@ -54,18 +58,19 @@ void	ft_init_extra_arg(t_philo *philo, int argc, char **argv)
 
 void	ft_mem_allocate(t_philo *philo)
 {
-	philo->tids = malloc((philo->p_num + 1) * sizeof(pthread_t));
-	philo->forks = malloc((philo->p_num + 1) * sizeof(pthread_mutex_t *));
+//	philo->tids = malloc((philo->p_num + 1) * sizeof(pthread_t));
+//	philo->forks = malloc((philo->p_num + 1) * sizeof(pthread_mutex_t *));
 	philo->eating_now = malloc(philo->p_num + 1);
 	philo->eating_now_m = malloc(sizeof(pthread_mutex_t));
 	philo->exit_m = malloc(sizeof(pthread_mutex_t));
 	philo->ate_last = malloc(philo->p_num * sizeof(long));
 	philo->io_m = malloc(sizeof(pthread_mutex_t));
 	philo->end_sim = malloc(sizeof(int));
+	philo->end_sim_m = malloc(sizeof(pthread_mutex_t));
 	*philo->end_sim = 0;
 	if (philo->tids == NULL || philo->forks == NULL || \
 	philo->eating_now == NULL || philo->eating_now_m == NULL || \
-	philo->ate_last == NULL || philo->exit_m == NULL || !philo->io_m)
+	philo->ate_last == NULL || philo->exit_m == NULL || philo->io_m == NULL)
 		ft_exit("Error : malloc error could not initiate \
 		philo structure !\n", 2, 1);
 }

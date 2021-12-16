@@ -8,8 +8,8 @@ CC = gcc
 
 ##FLGS = -Wall -Werror -Wextra -Imlx  -g -pthread -lrt
 FLGS = -Wall -Werror -Wextra -Imlx  -g -pthread
-VALGFLGS = --vgdb=full --leak-check=full -s -q
-TARGS = 5 1500 200 2000 2
+VALGFLGS = --vgdb=full -s -q
+TARGS = 5 1500 100 1400 10
 
 HEADER = philo.h
 

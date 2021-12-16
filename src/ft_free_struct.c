@@ -30,11 +30,13 @@ void	ft_free_and_exit(t_philo *philo)
 	pthread_mutex_destroy(philo->exit_m);
 	free(args);
 	free(philo->args);
-	free(philo->tids);
-	free(philo->forks);
+	//free(philo->tids);
+	//free(philo->forks);
 	free(philo->eating_now);
 	free(philo->eating_now_m);
 	free(philo->ate_last);
+	free(philo->end_sim);
+	free(philo->io_m);
 	if (philo->eat_num)
 		free(philo->eat_num);
 	free(philo->exit_m);

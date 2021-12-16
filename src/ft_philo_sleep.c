@@ -21,4 +21,5 @@ void	ft_philo_sleep(t_args *args)
 		return ;
 	ft_print_thstatus(args, "is sleeping");
 	ft_sleep_callback(args->philo->sleep, 5, ft_check_end, args);
+	ft_print_thstatus(args, "is thinking");
 }

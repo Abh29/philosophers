@@ -22,6 +22,5 @@ int	main(int argc, char **argv)
 	ft_create_philo_threads(&philo);
 	ft_join_threads(&philo);
 	ft_free_and_exit(&philo);
-	usleep(1000);
 	return (0);
 }

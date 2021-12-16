@@ -24,6 +24,8 @@ int	ft_can_eat(t_args *args)
 	int	left;
 	int	right;
 
+	if (*args->philo->end_sim != 0)
+		return (0);
 	left = (*args->n - 1 + args->philo->p_num) % args->philo->p_num;
 	right = (*args->n + 1 + args->philo->p_num) % args->philo->p_num;
 	return (args->philo->eating_now[left] == 0 && \
@@ -37,31 +39,29 @@ void	*ft_eat(t_args *args)
 	return (NULL);
 }
 
+void	ft_update_eating_status(t_args *args, int status)
+{
+	pthread_mutex_lock(args->philo->eating_now_m);
+	args->philo->eating_now[*args->n] = status;
+	pthread_mutex_unlock(args->philo->eating_now_m);
+}
+
 void	ft_philo_eat(t_args *args)
 {
-	if (!ft_can_eat(args))
-	{
-		ft_philo_think(args);
-		while (!ft_can_eat(args))
-		{
-			usleep(1000);
-			ft_check_end(args);
-		}
+	while (ft_can_eat(args) == 0)
 		if (*args->philo->end_sim != 0)
 			return ;
-	}
-	pthread_mutex_lock(args->philo->eating_now_m);
-	args->philo->eating_now[*args->n] = 1;
-	args->philo->ate_last[*args->n] = ft_time_stamp(args->philo) + \
-	args->philo->eat;
-	ft_lock_forks(args);
-	pthread_mutex_unlock(args->philo->eating_now_m);
-	ft_print_thstatus(args, "is eating");
-	usleep(10);
-	ft_sleep_callback(args->philo->eat, 1, ft_eat, args);
-	args->philo->ate_last[*args->n] = ft_time_stamp(args->philo);
-	if (args->philo->eat_num)
+	ft_update_eating_status(args, 1);
+	if (ft_can_eat(args))
+	{
+		ft_lock_forks(args);
+		ft_print_thstatus(args, "is eating");
+		ft_sleep_callback(args->philo->eat, 5, ft_eat, args);
+		ft_unlock_forks(args);
+		args->philo->ate_last[*args->n] = ft_time_stamp(args->philo);
+		if (args->philo->eat_num)
 		args->philo->eat_num[*args->n]++;
-	ft_unlock_forks(args);
-	args->philo->eating_now[*args->n] = 0;
+	}
+	ft_update_eating_status(args, 0);
+	usleep(1000);
 }

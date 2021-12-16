@@ -22,6 +22,7 @@ void	*ft_philosopher_thread(void *vrgs)
 		ft_philo_eat(args);
 		ft_philo_sleep(args);
 	}
+	//printf("%d ended execution \n", *args->n);
 	return (NULL);
 }
 
