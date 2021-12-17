@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 16:22:35 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/13 13:36:20 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/17 16:18:45 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	ft_init_extra_arg(t_philo *philo, int argc, char **argv)
 
 void	ft_mem_allocate(t_philo *philo)
 {
-//	philo->tids = malloc((philo->p_num + 1) * sizeof(pthread_t));
-//	philo->forks = malloc((philo->p_num + 1) * sizeof(pthread_mutex_t *));
+	philo->tids = malloc((philo->p_num + 1) * sizeof(pthread_t));
+	philo->forks = malloc((philo->p_num + 1) * sizeof(pthread_mutex_t *));
 	philo->eating_now = malloc(philo->p_num + 1);
 	philo->eating_now_m = malloc(sizeof(pthread_mutex_t));
 	philo->exit_m = malloc(sizeof(pthread_mutex_t));

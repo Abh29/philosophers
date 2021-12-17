@@ -1,8 +1,12 @@
 #first parts 
-SRC :=	main.c 	src/*.c
+SRC :=	main.c 	src/ft_atoi.c src/ft_check_end.c src/ft_create_threads.c \
+		src/ft_init.c src/ft_lock.c src/ft_philo_eat.c src/ft_philo_sleep.c \
+		src/tools.c src/tools_2.c src/ft_free_struct.c
 
 #bonnus 
-BSRC :=	main_bonus.c src/*.c
+BSRC :=	main_bonus.c src/ft_atoi.c src/ft_check_end2.c src/ft_create_processes.c \
+		src/ft_init_bonus.c src/ft_eat_bonus.c src/ft_sleep_bonus.c \
+		src/tools.c src/tools_2.c src/ft_free_struct.c
 
 CC = gcc
 

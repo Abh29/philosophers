@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 16:41:10 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/13 13:39:50 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/17 16:19:16 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	*ft_philosopher_thread(void *vrgs)
 		ft_philo_eat(args);
 		ft_philo_sleep(args);
 	}
-	//printf("%d ended execution \n", *args->n);
 	return (NULL);
 }
 

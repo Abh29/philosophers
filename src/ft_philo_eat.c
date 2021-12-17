@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 16:59:56 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/13 13:44:31 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/17 16:16:32 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,20 @@ void	ft_philo_eat(t_args *args)
 		if (*args->philo->end_sim != 0)
 			return ;
 	ft_update_eating_status(args, 1);
+	pthread_mutex_lock(args->philo->eating_now_m);
 	if (ft_can_eat(args))
 	{
 		ft_lock_forks(args);
+		pthread_mutex_unlock(args->philo->eating_now_m);
 		ft_print_thstatus(args, "is eating");
 		ft_sleep_callback(args->philo->eat, 5, ft_eat, args);
 		ft_unlock_forks(args);
 		args->philo->ate_last[*args->n] = ft_time_stamp(args->philo);
 		if (args->philo->eat_num)
-		args->philo->eat_num[*args->n]++;
+			args->philo->eat_num[*args->n]++;
 	}
+	else
+		pthread_mutex_unlock(args->philo->eating_now_m);
 	ft_update_eating_status(args, 0);
 	usleep(1000);
 }

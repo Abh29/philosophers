@@ -6,11 +6,26 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 20:56:13 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/13 12:24:57 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/17 16:42:27 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
+
+void	ft_free_helper(t_philo *philo)
+{
+	free(philo->args);
+	free(philo->tids);
+	free(philo->forks);
+	free(philo->eating_now);
+	free(philo->eating_now_m);
+	free(philo->ate_last);
+	free(philo->end_sim);
+	free(philo->io_m);
+	if (philo->eat_num)
+		free(philo->eat_num);
+	free(philo->exit_m);
+}
 
 void	ft_free_and_exit(t_philo *philo)
 {
@@ -28,18 +43,10 @@ void	ft_free_and_exit(t_philo *philo)
 	}
 	pthread_mutex_destroy(philo->eating_now_m);
 	pthread_mutex_destroy(philo->exit_m);
+	pthread_mutex_destroy(philo->end_sim_m);
+	pthread_mutex_destroy(philo->io_m);
 	free(args);
-	free(philo->args);
-	//free(philo->tids);
-	//free(philo->forks);
-	free(philo->eating_now);
-	free(philo->eating_now_m);
-	free(philo->ate_last);
-	free(philo->end_sim);
-	free(philo->io_m);
-	if (philo->eat_num)
-		free(philo->eat_num);
-	free(philo->exit_m);
+	ft_free_helper(philo);
 }
 
 void	ft_free_and_exit2(t_philo2 *philo)

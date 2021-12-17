@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 16:13:21 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/13 13:50:22 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/17 15:33:39 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,11 @@ void	ft_print_status(t_philo2 *philo, int n, char *msg)
 
 void	ft_print_thstatus(t_args *args, char *msg)
 {
-	//pthread_mutex_lock(args->philo->io_m);
+	if (*args->philo->end_sim != 0)
+		return ;
+	pthread_mutex_lock(args->philo->io_m);
 	if (*args->philo->end_sim == 0)
 		printf("%-10ld %-5d %s\n", \
 		ft_time_stamp(args->philo), *args->n, msg);
-	//pthread_mutex_unlock(args->philo->io_m);
+	pthread_mutex_unlock(args->philo->io_m);
 }

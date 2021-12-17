@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 16:22:35 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/13 12:24:00 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/17 16:40:49 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,11 @@ void	ft_init_extra_arg_bonus(t_philo2 *philo, int argc, char **argv)
 			philo structure!\n", 2, 1);
 		memset(philo->eat_num, 0, (philo->p_num + 1) * sizeof(int));
 	}
+	else
+		philo->eat_num = NULL;
 }
 
+/* semaphore max count is 32767 */
 void	ft_init_bonus(t_philo2 *philo, int argc, char **argv)
 {
 	philo->p_num = ft_atoi(argv[1]);

@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 20:30:46 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/13 12:32:45 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/17 16:43:50 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_philo_eat2(t_philo2 *philo, int n)
 {
 	sem_wait(philo->forks);
 	ft_check_end2(philo);
+	ft_print_status(philo, n, "has a fork");
 	ft_print_status(philo, n, "has a fork");
 	philo->ate_last[n] = ft_time_stamp2(philo);
 	if (philo->eat_num)
@@ -27,6 +28,10 @@ void	ft_philo_eat2(t_philo2 *philo, int n)
 	if (philo->eat_num && philo->eat_num[n] >= philo->eat_max)
 	{
 		ft_print_status(philo, n, "is full");
+		free(philo->pids);
+		free(philo->ate_last);
+		if (philo->eat_num)
+			free(philo->eat_num);
 		exit(0);
 	}
 }

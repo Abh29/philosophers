@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 17:15:01 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/13 13:51:10 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/17 16:10:02 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,20 @@ void	ft_philo_full(t_args *args)
 {
 	pthread_mutex_lock(args->philo->io_m);
 	if (*args->philo->end_sim != 0)
+	{
+		pthread_mutex_unlock(args->philo->io_m);
 		return ;
+	}
 	pthread_mutex_lock(args->philo->end_sim_m);
+	if (*args->philo->end_sim != 0)
+	{
+		pthread_mutex_unlock(args->philo->end_sim_m);
+		return ;
+	}
 	*args->philo->end_sim = 2;
-	pthread_mutex_unlock(args->philo->end_sim_m);
 	printf("%-10ld       philosophers are full !\n", ft_time_stamp(args->philo));
-	usleep(1000);
+	usleep(10000);
+	pthread_mutex_unlock(args->philo->end_sim_m);
 	pthread_mutex_unlock(args->philo->io_m);
 	return ;
 }

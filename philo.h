@@ -27,12 +27,12 @@
 
 typedef struct timeval	t_time;
 
-#define MAX_THREAD_NUMBER  250
+# define MAX_THREAD_NUMBER  250
 
 typedef struct s_philo
 {
-	pthread_t			tids[MAX_THREAD_NUMBER];
-	pthread_mutex_t		*forks[MAX_THREAD_NUMBER];
+	pthread_t			*tids;
+	pthread_mutex_t		**forks;
 	pthread_mutex_t		*eating_now_m;
 	pthread_mutex_t		*io_m;
 	char				*eating_now;
