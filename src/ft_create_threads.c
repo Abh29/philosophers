@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 16:41:10 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/17 16:19:16 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/21 17:19:49 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ void	ft_join_threads(t_philo *philo)
 		pthread_join(philo->tids[i++], NULL);
 }
 
-void	ft_create_philo_threads(t_philo *philo)
+int	ft_create_philo_threads(t_philo *philo)
 {
 	int		i;
 	t_args	*args;
 
 	args = malloc((philo->p_num + 1) * sizeof(t_args));
 	if (args == NULL)
-		ft_exit("Error : could not allocate memory !", 2, 1);
+		return (5);
 	*philo->args = args;
 	args[philo->p_num].n = malloc(sizeof(int));
 	i = 0;
@@ -52,7 +52,8 @@ void	ft_create_philo_threads(t_philo *philo)
 		*(args[i].n) = i;
 		if (pthread_create(&(philo->tids[i]), NULL, \
 		ft_philosopher_thread, &args[i]) != 0)
-			ft_exit("Error : could not create a thread !\n", 2, 1);
+			return (6);
 		i++;
 	}
+	return (0);
 }

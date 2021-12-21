@@ -88,17 +88,18 @@ long	ft_time_stamp(t_philo *philo);
 long	ft_time_stamp2(t_philo2 *philo);
 void	ft_free_and_exit(t_philo *philo);
 void	ft_free_and_exit2(t_philo2 *philo);
+int		ft_exit_msg(int err, int fd);
 
 void	ft_lock_forks(t_args *args);
 void	ft_unlock_forks(t_args *args);
 
-void	ft_init(t_philo *philo, int argc, char **argv);
+int		ft_init(t_philo *philo, int argc, char **argv);
 void	ft_philo_eat(t_args *args);
 void	ft_philo_die(t_args *args, int n);
 void	ft_philo_think(t_args *args);
 void	ft_philo_sleep(t_args *args);
 void	ft_philo_full(t_args *args);
-void	ft_create_philo_threads(t_philo *philo);
+int		ft_create_philo_threads(t_philo *philo);
 void	ft_join_threads(t_philo *philo);
 void	ft_print_thstatus(t_args *args, char *msg);
 
